@@ -12,11 +12,13 @@ def item_details(items):
     for item in items:
 
         # Iterating across all items in dict, assuming possibility of multiple values in product_type
-        rows = map(lambda a,b,c,d : {'item_id' : a,
-                        'domain_name' : b,
-                        'marketplace' : c,
-                        'product_type' : d['value']}, 
+        rows = map(lambda a,b,c,d,e : {'item_id' : a,
+                        'country' : b,
+                        'domain_name' : c,
+                        'marketplace' : d,
+                        'product_type' : e['value']}, 
                             [item['item_id']]*len(item['product_type'])
+                            ,[item['country']]*len(item['product_type'])
                             ,[item['domain_name']]*len(item['product_type'])
                             ,[item['marketplace']]*len(item['product_type'])
                             ,item['product_type'])
@@ -48,6 +50,7 @@ def item_keywords(items):
     for item in items:
         if 'item_keywords' in item.keys():
 
+             # Iterating across all items in dict, assuming possibility of multiple values item_keywords
             rows = map(lambda a,b : {'item_id' : a,
                             'keywords_name' : b['value'],
                             'item_keywords_language' : b['language_tag']}, [item['item_id']]*len(item['item_keywords']),item['item_keywords'])
