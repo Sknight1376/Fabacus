@@ -1,5 +1,4 @@
 import json
-import os
 import pandas as pd
 
 fpath = 'Data/listings_0.json'
@@ -63,6 +62,8 @@ def item_keywords(items):
 
 
 if __name__ == '__main__':
+
+    # Construct list od dicts from data file
     try:
         with open(fpath) as file:
             constructed_json = json.load(file)
@@ -75,11 +76,14 @@ if __name__ == '__main__':
         constructed_json = json.loads('['+','.join(file_list)+']')
 
 
+    #Create item details dataframe and write to csv
     item_details_dataframe  = pd.DataFrame(item_details(constructed_json))
     item_details_dataframe.to_csv('Output/item_details.csv', index=False)
 
+    #Create item names dataframe and write to csv
     item_names_dataframe  = pd.DataFrame(item_name(constructed_json))
     item_names_dataframe.to_csv('Output/item_names.csv', index=False)
 
+    #Create keywords dataframe and write to csv
     item_keywords_dataframe  = pd.DataFrame(item_keywords(constructed_json))
     item_keywords_dataframe.to_csv('Output/item_keywords.csv', index=False)
